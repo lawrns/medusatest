@@ -1,4 +1,5 @@
 import { loadEnv, defineConfig } from '@medusajs/framework/utils'
+import { Modules } from '@medusajs/utils'
 
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
@@ -12,17 +13,21 @@ module.exports = defineConfig({
       authCors: process.env.AUTH_CORS!,
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
-      port: process.env.PORT || 9000,
     }
   },
-  admin: {
-    autoRebuild: true,
-  },
+
   modules: {
-    redis: {
-      options: {
-        url: process.env.REDIS_URL || "redis://localhost:6379",
-      },
+    [Modules.CACHE]: {
+      resolve: "@medusajs/cache-redis",
+      options: process.env.REDIS_URL ? { redisUrl: process.env.REDIS_URL } : undefined
     },
+    [Modules.EVENT_BUS]: {
+      resolve: "@medusajs/event-bus-redis",
+      options: process.env.REDIS_URL ? { redisUrl: process.env.REDIS_URL } : undefined
+    },
+    [Modules.WORKFLOW_ENGINE]: {
+      resolve: "@medusajs/workflow-engine-redis",
+      options: process.env.REDIS_URL ? { redisUrl: process.env.REDIS_URL } : undefined
+    }
   },
 })
