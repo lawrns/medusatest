@@ -23,19 +23,20 @@
     "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit"
   },
   "dependencies": {
-    "@medusajs/admin-sdk": "2.10.0",
-    "@medusajs/cache-redis": "^2.10.1",
-    "@medusajs/cli": "2.10.0",
-    "@medusajs/event-bus-redis": "^2.10.1",
-    "@medusajs/framework": "2.10.0",
-    "@medusajs/medusa": "2.10.0",
-    "@medusajs/workflow-engine-redis": "^2.10.1",
+    "@medusajs/admin": "8.0.0-snapshot-20230824101404",
+    "@medusajs/admin-sdk": "2.10.1",
+    "@medusajs/cache-redis": "2.10.1",
+    "@medusajs/cli": "2.10.1",
+    "@medusajs/event-bus-redis": "2.10.1",
+    "@medusajs/framework": "2.10.1",
+    "@medusajs/medusa": "2.10.1",
+    "@medusajs/workflow-engine-redis": "2.10.1",
     "@mikro-orm/core": "6.4.3",
     "@mikro-orm/knex": "6.4.3",
     "@mikro-orm/migrations": "6.4.3",
     "@mikro-orm/postgresql": "6.4.3",
     "awilix": "^8.0.1",
-    "ioredis": "^5.7.0",
+    "ioredis": "5",
     "pg": "^8.13.0"
   },
   "devDependencies": {
