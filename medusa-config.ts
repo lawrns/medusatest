@@ -2,8 +2,9 @@ import { loadEnv, defineConfig } from '@medusajs/framework/utils'
 
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
-const REDIS_URL = process.env.REDIS_URL
-const REDIS_DB = Number.isFinite(Number(process.env.REDIS_DB)) ? Number(process.env.REDIS_DB) : 0
+const ADMIN_PATH = process.env.ADMIN_PATH || "/app";
+const USE_INMEMORY = process.env.USE_INMEMORY === "true"; // set to true to force fallback
+const REDIS_URL = process.env.REDIS_URL; // e.g. redis://user:pass@host:6379
 
 module.exports = defineConfig({
   projectConfig: {
@@ -16,17 +17,10 @@ module.exports = defineConfig({
     }
   },
   modules: {
-    cacheService: {
-      resolve: "@medusajs/cache-redis",
-      options: REDIS_URL ? { redis: { url: REDIS_URL, db: REDIS_DB } } : undefined
-    },
-    eventBusService: {
-      resolve: "@medusajs/event-bus-redis",
-      options: REDIS_URL ? { redis: { url: REDIS_URL, db: REDIS_DB } } : undefined
-    },
-    workflowEngineService: {
-      resolve: "@medusajs/workflow-engine-redis",
-      options: REDIS_URL ? { redis: { url: REDIS_URL, db: REDIS_DB } } : undefined
-    }
+    ...( !USE_INMEMORY && REDIS_URL ? {
+      cacheService: { resolve: "@medusajs/cache-redis", options: { redisUrl: REDIS_URL } },
+      eventBusService: { resolve: "@medusajs/event-bus-redis", options: { redisUrl: REDIS_URL } },
+      workflowEngineService: { resolve: "@medusajs/workflow-engine-redis", options: { redis: { url: REDIS_URL } } }
+    } : {} )
   },
 })
