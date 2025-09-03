@@ -15,7 +15,7 @@
   "scripts": {
     "build": "medusa build",
     "seed": "medusa exec ./src/scripts/seed.ts",
-    "start": "medusa db:migrate && medusa start",
+    "start": "medusa start",
     "predeploy": "medusa db:migrate",
     "dev": "medusa develop",
     "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
@@ -58,6 +58,9 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "resolutions": {
+    "@medusajs/*": "2.10.1"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
