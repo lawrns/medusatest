@@ -16,15 +16,15 @@ module.exports = defineConfig({
     }
   },
   modules: {
-    "cacheService": {
+    cacheService: {
       resolve: "@medusajs/cache-redis",
       options: REDIS_URL ? { redis: { url: REDIS_URL, db: REDIS_DB } } : undefined
     },
-    "eventBusService": {
+    eventBusService: {
       resolve: "@medusajs/event-bus-redis",
       options: REDIS_URL ? { redis: { url: REDIS_URL, db: REDIS_DB } } : undefined
     },
-    "workflowEngineService": {
+    workflowEngineService: {
       resolve: "@medusajs/workflow-engine-redis",
       options: REDIS_URL ? { redis: { url: REDIS_URL, db: REDIS_DB } } : undefined
     }
