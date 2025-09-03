@@ -1,5 +1,4 @@
 import { loadEnv, defineConfig } from '@medusajs/framework/utils'
-import { Modules } from '@medusajs/utils'
 
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
@@ -16,24 +15,18 @@ module.exports = defineConfig({
       authCors: process.env.AUTH_CORS || "http://localhost:7000,http://localhost:7001",
     }
   },
-
   modules: {
-    // Cache via Redis
-    [Modules.CACHE]: {
+    "cacheService": {
       resolve: "@medusajs/cache-redis",
-      options: REDIS_URL ? { redisUrl: REDIS_URL } : undefined
+      options: REDIS_URL ? { redis: { url: REDIS_URL, db: REDIS_DB } } : undefined
     },
-
-    // Event bus via Redis
-    [Modules.EVENT_BUS]: {
+    "eventBusService": {
       resolve: "@medusajs/event-bus-redis",
-      options: REDIS_URL ? { redisUrl: REDIS_URL } : undefined
+      options: REDIS_URL ? { redis: { url: REDIS_URL, db: REDIS_DB } } : undefined
     },
-
-    // Workflow engine via Redis
-    [Modules.WORKFLOW_ENGINE]: {
+    "workflowEngineService": {
       resolve: "@medusajs/workflow-engine-redis",
-      options: REDIS_URL ? { redisUrl: REDIS_URL } : undefined
+      options: REDIS_URL ? { redis: { url: REDIS_URL, db: REDIS_DB } } : undefined
     }
   },
 })
